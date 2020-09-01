@@ -75,6 +75,8 @@ public class LauncherPanel extends IScreen {
 	
 	private LauncherButton createaccount;
 	private LauncherButton websiteButton;
+	private LauncherButton DiscordButton;
+	private LauncherButton supportButton;
 	
 	private Timeline timeline;
 	private DecimalFormat decimalFormat = new DecimalFormat(".#");
@@ -88,7 +90,7 @@ public class LauncherPanel extends IScreen {
 
 	public LauncherPanel(Pane root, GameEngine engine) {
 		/** ================= Arrière plan du launcher ================= **/
-		this.drawBackgroundImage(engine, root, "background.png");
+		this.drawBackgroundImage(engine, root, "bg.jpg");
 		
 		this.userConfig = new UserConfig(engine);
 		this.theGameEngine = engine;
@@ -102,7 +104,7 @@ public class LauncherPanel extends IScreen {
 		
 		this.titleLabel = new LauncherLabel(root);
 		this.titleLabel.setText("KGInfoServs Launcher");
-		this.titleLabel.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 18F));
+		this.titleLabel.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 18F));
 		this.titleLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: black");
 		this.titleLabel.setPosition(engine.getWidth() / 2 - 80, -4);
 		this.titleLabel.setOpacity(0.7);
@@ -140,7 +142,7 @@ public class LauncherPanel extends IScreen {
 		
 		/** ================= Rectangle gauche ================= **/
 		this.leftRectangle = new LauncherRectangle(root, 0, 31, 300, engine.getHeight());
-		this.leftRectangle.setFill(Color.rgb(89, 130, 227, 0.70));
+		this.leftRectangle.setFill(Color.rgb(4, 5, 19, 0.50));
 		
 		this.serverStatusImage = new LauncherImage(root);
 		this.serverStatusImage.setImage(getResourceLocation().loadImage(engine, "status.png"));
@@ -149,14 +151,15 @@ public class LauncherPanel extends IScreen {
 		
 		this.serverStatusLabel = new LauncherLabel(root);
 		this.serverStatusLabel.setText("Status des serveurs");
-		this.serverStatusLabel.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 26F));
+		this.serverStatusLabel.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 26F));
 		this.serverStatusLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: white");
 		this.serverStatusLabel.setPosition(50, 120);
 		this.serverStatusLabel.setSize(250, 40);
 		
 		this.serverStatusSurvivalLabel = new LauncherLabel(root);
 		this.serverStatusSurvivalLabel.setText("Survie  :");
-		this.serverStatusSurvivalLabel.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 22F));
+		this.drawLogo(engine, getResourceLocation().loadImage(engine, "Wooden_Pickaxe_25721.png"), 15, 165, 28, 28, root, Mover.DONT_MOVE);
+		this.serverStatusSurvivalLabel.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 22F));
 		this.serverStatusSurvivalLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: white");
 		this.serverStatusSurvivalLabel.setPosition(50, 160);
 		this.serverStatusSurvivalLabel.setSize(80, 40);
@@ -167,9 +170,10 @@ public class LauncherPanel extends IScreen {
 		
 		this.serverStatusCreativeLabel = new LauncherLabel(root);
 		this.serverStatusCreativeLabel.setText("Créatif :");
-		this.serverStatusCreativeLabel.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 22F));
+		this.drawLogo(engine, getResourceLocation().loadImage(engine, "diamond.png"), 15, 190, 30, 30, root, Mover.DONT_MOVE);
+		this.serverStatusCreativeLabel.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 22F));
 		this.serverStatusCreativeLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: white");
-		this.serverStatusCreativeLabel.setPosition(50, 190);
+		this.serverStatusCreativeLabel.setPosition(50, 185);
 		this.serverStatusCreativeLabel.setSize(80, 40);
 		
 		this.serverStatusCreative = new LauncherImage(root);
@@ -182,14 +186,14 @@ public class LauncherPanel extends IScreen {
 		this.playerCounterImage.setPosition(101, 270);
 		
 		this.playerCounterLabel = new LauncherLabel(root);
-		this.playerCounterLabel.setText("Joueurs connecté");
-		this.playerCounterLabel.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 24F));
+		this.playerCounterLabel.setText("Citoyens connectés");
+		this.playerCounterLabel.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 24F));
 		this.playerCounterLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: white");
 		this.playerCounterLabel.setPosition(50, 370);
 		this.playerCounterLabel.setSize(250, 40);
 		
 		this.playerCounter = new LauncherLabel(root);
-		this.playerCounter.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 20F));
+		this.playerCounter.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 20F));
 		this.playerCounter.setStyle("-fx-background-color: transparent; -fx-text-fill: white");
 		this.playerCounter.setPosition(125, 400);
 		this.playerCounter.setSize(100, 40);
@@ -210,65 +214,87 @@ public class LauncherPanel extends IScreen {
 		
 		this.websiteButton = new LauncherButton(root);
 		this.websiteButton.setText("Site web");
-		this.websiteButton.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 30F));
-		this.websiteButton.setStyle("-fx-background-color: rgba(0, 0, 0, 0.4); -fx-text-fill: white;");
+		this.websiteButton.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 18F));
+		this.websiteButton.setStyle("-fx-background-color: rgba(0, 0, 0, 0.8); -fx-text-fill: white;");
 		this.websiteButton.setInvisible();
 		this.websiteButton.setPosition(50, engine.getHeight() - 100);
-		this.websiteButton.setSize(200, 40);
+		this.websiteButton.setSize(100, 40);
 		this.websiteButton.setOnAction(event -> {
 			openLink("https://kginfoservs.com");
 		});
 		
+		this.DiscordButton = new LauncherButton(root);
+		this.DiscordButton.setText("Discord");
+		this.DiscordButton.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 18F));
+		this.DiscordButton.setStyle("-fx-background-color: rgba(0, 0, 0, 0.8); -fx-text-fill: white;");
+		this.DiscordButton.setInvisible();
+		this.DiscordButton.setPosition(150, engine.getHeight() - 100);
+		this.DiscordButton.setSize(100, 40);
+		this.DiscordButton.setOnAction(event -> {
+			openLink("https://discord.gg/UxxdkDy");
+		});
+		
+		this.supportButton = new LauncherButton(root);
+		this.supportButton.setText("Support");
+		this.supportButton.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 18F));
+		this.supportButton.setStyle("-fx-background-color: rgba(0, 0, 0, 0.8); -fx-text-fill: white;");
+		this.supportButton.setInvisible();
+		this.supportButton.setPosition(100, engine.getHeight() - 50);
+		this.supportButton.setSize(100, 40);
+		this.supportButton.setOnAction(event -> {
+			openLink("mailto:contact@kginfoservs.com");
+		});
+		
 		/** ================= Rectangle droit ================= **/
 		this.rightRectangle = new LauncherRectangle(root, 650, 31, 300, engine.getHeight());
-		this.rightRectangle.setFill(Color.rgb(89, 130, 227, 0.7));
+		this.rightRectangle.setFill(Color.rgb(4, 5, 19, 0.50));
 		
-		this.drawLogo(engine, getResourceLocation().loadImage(engine, "website_icon.png"), 736, 75, 128, 128, root, Mover.DONT_MOVE);
+		this.drawLogo(engine, getResourceLocation().loadImage(engine, "logo.png"), 700, 75, 200, 200, root, Mover.DONT_MOVE);
 		
 		this.usernameField = new LauncherTextField(root);
 		this.usernameField.setText(this.usernameSaver.getUsername());
-		this.usernameField.setPosition(700, engine.getHeight() / 2 - 57);
+		this.usernameField.setPosition(700, engine.getHeight() / 2 - -5);
 		this.usernameField.setSize(200, 50);
-		this.usernameField.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 18F));
-		this.usernameField.setStyle("-fx-background-color: rgba(0, 0, 0, 0.4); -fx-text-fill: white;");
-		this.usernameField.setVoidText("Nom de compte");
+		this.usernameField.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 18F));
+		this.usernameField.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6); -fx-text-fill: white;");
+		this.usernameField.setVoidText("Adressse e-mail");
 		
 		this.passwordField = new LauncherPasswordField(root);
-		this.passwordField.setPosition(700, engine.getHeight() / 2);
+		this.passwordField.setPosition(700, engine.getHeight() / 2 - -65);
 		this.passwordField.setSize(200, 50);
-		this.passwordField.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 18F));
-		this.passwordField.setStyle("-fx-background-color: rgba(0, 0, 0, 0.4); -fx-text-fill: white;");
+		this.passwordField.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 18F));
+		this.passwordField.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6); -fx-text-fill: white;");
 		this.passwordField.setVoidText("Mot de passe");
 		
 		this.loginButton = new LauncherButton(root);
 		this.loginButton.setText("Se connecter");
-		this.loginButton.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 22F));
-		this.loginButton.setPosition(700, engine.getHeight() / 2 + 60);
+		this.loginButton.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 22F));
+		this.loginButton.setPosition(700, engine.getHeight() / 2 + 130);
 		this.loginButton.setSize(200, 45);
-		this.loginButton.setStyle("-fx-background-color: rgba(0, 0, 0, 0.4); -fx-text-fill: white;");
+		this.loginButton.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6); -fx-text-fill: white;");
 		this.loginButton.setAction(event -> {
 			if (this.usernameField.getText().length() < 3) {
-				new LauncherAlert("Connexion echouee", "Le username doit contenir plus de 3 carateres");
+				new LauncherAlert("Connexion echouée", "Addresse e-mail invalide");
 			} else if (this.usernameField.getText().length() > 3 && !this.passwordField.getText().isEmpty()) {
 				GameAuth auth = new GameAuth(this.usernameField.getText(), this.passwordField.getText(), AccountType.MOJANG);
 				if (auth.isLogged()) {
 					this.usernameSaver.writeUsername(this.usernameField.getText());
 					this.update(engine, auth);
 				} else {
-					new LauncherAlert("Connexion echouee", "Identification incorrects");
+					new LauncherAlert("Connexion echouée", "Identification incorrects");
 				}
 			} else {
-				new LauncherAlert("Connexion echouee", "La connexion a echouee");
+				new LauncherAlert("Connexion echouée", "La connexion a echouée");
 			}
 		});
 		
 		this.settingsButton = new LauncherButton(root);
-		this.settingsButton.setStyle("-fx-background-color: rgba(0, 0, 0, 0.4); -fx-text-fill: white;");
+		this.settingsButton.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6); -fx-text-fill: white;");
 		LauncherImage settingsImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "settings.png"));
 		settingsImg.setSize(27, 27);
 		this.settingsButton.setGraphic(settingsImg);
-		this.settingsButton.setPosition(750, engine.getHeight() / 2 + 130);
-		this.settingsButton.setSize(100, 40);
+		this.settingsButton.setPosition(890, engine.getHeight() / 2 + -260);
+		this.settingsButton.setSize(50, 40);
 		 this.settingsButton.setOnAction(new EventHandler<ActionEvent>() {
 			 @Override
 			 public void handle(ActionEvent event) {
@@ -277,7 +303,7 @@ public class LauncherPanel extends IScreen {
 			 scene.setFill(Color.TRANSPARENT);
 			 stage.setResizable(false);
 			 stage.initStyle(StageStyle.TRANSPARENT);
-			 stage.setTitle("Parametres Launcher");
+			 stage.setTitle("Paramètres");
 			 stage.setWidth(500);
 			 stage.setHeight(230);
 			 stage.setScene(scene);
@@ -288,8 +314,8 @@ public class LauncherPanel extends IScreen {
 		
 		this.createaccount = new LauncherButton(root);
 		this.createaccount.setText("Creer un compte");
-		this.createaccount.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 14F));
-		this.createaccount.setStyle("-fx-background-color: rgba(0, 0, 0, 0.4); -fx-text-fill: white;");
+		this.createaccount.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 14F));
+		this.createaccount.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6); -fx-text-fill: white;");
 		this.createaccount.setInvisible();
 		this.createaccount.setPosition(725, engine.getHeight() / 2 + 200);
 		this.createaccount.setSize(150, 40);
@@ -307,7 +333,7 @@ public class LauncherPanel extends IScreen {
 		this.updateLabel = new LauncherLabel(root);
 		this.updateLabel.setText("- MISE A JOUR -");
 		this.updateLabel.setAlignment(Pos.CENTER);
-		this.updateLabel.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 22F));
+		this.updateLabel.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 22F));
 		this.updateLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
 		this.updateLabel.setPosition(engine.getWidth() / 2 - 95, engine.getHeight() / 2 - 55);
 		this.updateLabel.setSize(190, 40);
@@ -316,7 +342,7 @@ public class LauncherPanel extends IScreen {
 		this.currentStepLabel = new LauncherLabel(root);
 		this.currentStepLabel.setText("Preparation de la mise à jour");
 		this.currentStepLabel.setAlignment(Pos.CENTER);
-		this.currentStepLabel.setFont(Font.font("Verdana", FontPosture.ITALIC, 18F));
+		this.currentStepLabel.setFont(Font.font("Chomsky", FontPosture.ITALIC, 18F));
 		this.currentStepLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
 		this.currentStepLabel.setPosition(engine.getWidth() / 2 - 160, engine.getHeight() / 2 + 83);
 		this.currentStepLabel.setSize(320, 40);
@@ -325,7 +351,7 @@ public class LauncherPanel extends IScreen {
 		
 		this.currentFileLabel = new LauncherLabel(root);
 		this.currentFileLabel.setAlignment(Pos.CENTER);
-		this.currentFileLabel.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 18F));
+		this.currentFileLabel.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 18F));
 		this.currentFileLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
 		this.currentFileLabel.setPosition(engine.getWidth() / 2 - 160, engine.getHeight() / 2 + 25);
 		this.currentFileLabel.setSize(320, 40);
@@ -334,7 +360,7 @@ public class LauncherPanel extends IScreen {
 		this.percentageLabel = new LauncherLabel(root);
 		this.percentageLabel.setAlignment(Pos.CENTER);
 		this.percentageLabel.setText("0%");
-		this.percentageLabel.setFont(FontLoader.loadFont("Roboto-Light.ttf", "Roboto Light", 30F));
+		this.percentageLabel.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 30F));
 		this.percentageLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
 		this.percentageLabel.setPosition(engine.getWidth() / 2 - 50, engine.getHeight() / 2 - 5);
 		this.percentageLabel.setOpacity(0.8);
