@@ -335,8 +335,8 @@ public class LauncherPanel extends IScreen {
 		this.updateLabel.setAlignment(Pos.CENTER);
 		this.updateLabel.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 22F));
 		this.updateLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
-		this.updateLabel.setPosition(engine.getWidth() / 2 - 95, engine.getHeight() / 2 - 55);
-		this.updateLabel.setSize(190, 40);
+		this.updateLabel.setPosition(engine.getWidth() / 2 - 100, engine.getHeight() / 2 - 55);
+		this.updateLabel.setSize(200, 40);
 		this.updateLabel.setVisible(false);
 		
 		this.currentStepLabel = new LauncherLabel(root);
