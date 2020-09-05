@@ -72,6 +72,7 @@ public class LauncherPanel extends IScreen {
 	
 	private LauncherButton loginButton;
 	private LauncherButton settingsButton;
+	private LauncherLabel error;
 	
 	private LauncherButton createaccount;
 	private LauncherButton websiteButton;
@@ -244,6 +245,13 @@ public class LauncherPanel extends IScreen {
 		
 		this.drawLogo(engine, getResourceLocation().loadImage(engine, "logo.png"), 700, 75, 200, 200, root, Mover.DONT_MOVE);
 		
+		this.error = new LauncherLabel(root);
+		this.error.setVisible(false);;
+		this.error.setPosition(700, engine.getHeight() / 2 + 170);
+		this.error.setSize(200, 40);
+		this.error.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 18F));
+		this.error.setStyle("-fx-background-color: transparent; -fx-text-fill: red");
+		
 		this.usernameField = new LauncherTextField(root);
 		this.usernameField.setText(this.usernameSaver.getUsername());
 		this.usernameField.setPosition(700, engine.getHeight() / 2 - -5);
@@ -260,24 +268,30 @@ public class LauncherPanel extends IScreen {
 		this.passwordField.setVoidText("Mot de passe");
 		
 		this.loginButton = new LauncherButton(root);
-		this.loginButton.setText("Se connecter");
+		this.loginButton.setText("Jouer");
 		this.loginButton.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 22F));
-		this.loginButton.setPosition(700, engine.getHeight() / 2 + 130);
-		this.loginButton.setSize(200, 45);
+		this.loginButton.setPosition(700, engine.getHeight() / 2 + 125);
+		this.loginButton.setSize(200, 40);
 		this.loginButton.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6); -fx-text-fill: white;");
 		this.loginButton.setAction(event -> {
 			if (this.usernameField.getText().length() < 3) {
-				new LauncherAlert("Connexion echouée", "Addresse e-mail invalide");
+//				new LauncherAlert("Connexion echouée", "Addresse e-mail invalide");
+				this.error.setVisible(true);
+				this.error.setText("Addresse e-mail invalide");
 			} else if (this.usernameField.getText().length() > 3 && !this.passwordField.getText().isEmpty()) {
 				GameAuth auth = new GameAuth(this.usernameField.getText(), this.passwordField.getText(), AccountType.MOJANG);
 				if (auth.isLogged()) {
 					this.usernameSaver.writeUsername(this.usernameField.getText());
 					this.update(engine, auth);
 				} else {
-					new LauncherAlert("Connexion echouée", "Identification incorrects");
+//					new LauncherAlert("Connexion echouée", "Identification incorrects");
+					this.error.setVisible(true);
+					this.error.setText("Identifiants incorrects");
 				}
 			} else {
-				new LauncherAlert("Connexion echouée", "La connexion a echouée");
+//				new LauncherAlert("Connexion echouée", "La connexion a echouée");
+				this.error.setVisible(true);
+				this.error.setText("Mot de passe invalide");
 			}
 		});
 		
@@ -310,7 +324,7 @@ public class LauncherPanel extends IScreen {
 		this.createaccount.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 14F));
 		this.createaccount.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6); -fx-text-fill: white;");
 		this.createaccount.setInvisible();
-		this.createaccount.setPosition(725, engine.getHeight() / 2 + 200);
+		this.createaccount.setPosition(725, engine.getHeight() / 2 + 250);
 		this.createaccount.setSize(150, 40);
 		this.createaccount.setOnAction(event -> {
 			openLink("https://www.minecraft.net/fr-fr/get-minecraft");
