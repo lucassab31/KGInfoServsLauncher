@@ -72,11 +72,16 @@ public class LauncherPanel extends IScreen {
 	
 	private LauncherButton loginButton;
 	private LauncherButton settingsButton;
+	private LauncherLabel error;
 	
 	private LauncherButton createaccount;
 	private LauncherButton websiteButton;
-	private LauncherButton DiscordButton;
 	private LauncherButton supportButton;
+	
+	private LauncherRectangle reseauxSociaux;
+	private LauncherButton facebook;
+	private LauncherButton discord;
+	private LauncherButton twitter;
 	
 	private Timeline timeline;
 	private DecimalFormat decimalFormat = new DecimalFormat(".#");
@@ -117,11 +122,11 @@ public class LauncherPanel extends IScreen {
 		
 		this.closeButton = new LauncherButton(root);
 		this.closeButton.setInvisible();
-		this.closeButton.setPosition(engine.getWidth() - 35, 2);
-		this.closeButton.setSize(15, 15);
+		this.closeButton.setPosition(engine.getWidth() - 40, 2);
+		this.closeButton.setSize(20, 20);
 		this.closeButton.setBackground(null);
 		LauncherImage closeImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "close.png"));
-		closeImg.setSize(15, 15);
+		closeImg.setSize(20, 20);
 		this.closeButton.setGraphic(closeImg);
 		this.closeButton.setOnAction(event -> {
 			System.exit(0);
@@ -129,11 +134,11 @@ public class LauncherPanel extends IScreen {
 		
 		this.reduceButton = new LauncherButton(root);
 		this.reduceButton.setInvisible();
-		this.reduceButton.setPosition(engine.getWidth() - 55, 2);
-		this.reduceButton.setSize(15, 15);
+		this.reduceButton.setPosition(engine.getWidth() - 65, 2);
+		this.reduceButton.setSize(20, 20);
 		this.reduceButton.setBackground(null);
 		LauncherImage reduceImg = new LauncherImage(root, getResourceLocation().loadImage(engine, "minimize.png"));
-		reduceImg.setSize(15, 15);
+		reduceImg.setSize(20, 20);
 		this.reduceButton.setGraphic(reduceImg);
 		this.reduceButton.setOnAction(event -> {
 			Stage stage = (Stage) ((LauncherButton) event.getSource()).getScene().getWindow();
@@ -214,33 +219,22 @@ public class LauncherPanel extends IScreen {
 		
 		this.websiteButton = new LauncherButton(root);
 		this.websiteButton.setText("Site web");
-		this.websiteButton.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 18F));
+		this.websiteButton.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 20F));
 		this.websiteButton.setStyle("-fx-background-color: rgba(0, 0, 0, 0.8); -fx-text-fill: white;");
 		this.websiteButton.setInvisible();
 		this.websiteButton.setPosition(50, engine.getHeight() - 100);
-		this.websiteButton.setSize(100, 40);
+		this.websiteButton.setSize(200, 40);
 		this.websiteButton.setOnAction(event -> {
 			openLink("https://kginfoservs.com");
 		});
 		
-		this.DiscordButton = new LauncherButton(root);
-		this.DiscordButton.setText("Discord");
-		this.DiscordButton.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 18F));
-		this.DiscordButton.setStyle("-fx-background-color: rgba(0, 0, 0, 0.8); -fx-text-fill: white;");
-		this.DiscordButton.setInvisible();
-		this.DiscordButton.setPosition(150, engine.getHeight() - 100);
-		this.DiscordButton.setSize(100, 40);
-		this.DiscordButton.setOnAction(event -> {
-			openLink("https://discord.gg/UxxdkDy");
-		});
-		
 		this.supportButton = new LauncherButton(root);
 		this.supportButton.setText("Support");
-		this.supportButton.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 18F));
+		this.supportButton.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 20F));
 		this.supportButton.setStyle("-fx-background-color: rgba(0, 0, 0, 0.8); -fx-text-fill: white;");
 		this.supportButton.setInvisible();
-		this.supportButton.setPosition(100, engine.getHeight() - 50);
-		this.supportButton.setSize(100, 40);
+		this.supportButton.setPosition(50, engine.getHeight() - 50);
+		this.supportButton.setSize(200, 40);
 		this.supportButton.setOnAction(event -> {
 			openLink("mailto:contact@kginfoservs.com");
 		});
@@ -250,6 +244,13 @@ public class LauncherPanel extends IScreen {
 		this.rightRectangle.setFill(Color.rgb(4, 5, 19, 0.50));
 		
 		this.drawLogo(engine, getResourceLocation().loadImage(engine, "logo.png"), 700, 75, 200, 200, root, Mover.DONT_MOVE);
+		
+		this.error = new LauncherLabel(root);
+		this.error.setVisible(false);;
+		this.error.setPosition(700, engine.getHeight() / 2 + 170);
+		this.error.setSize(200, 40);
+		this.error.setFont(FontLoader.loadFont("Comfortaa-Regular.ttf", "Comfortaa", 18F));
+		this.error.setStyle("-fx-background-color: transparent; -fx-text-fill: red");
 		
 		this.usernameField = new LauncherTextField(root);
 		this.usernameField.setText(this.usernameSaver.getUsername());
@@ -267,24 +268,30 @@ public class LauncherPanel extends IScreen {
 		this.passwordField.setVoidText("Mot de passe");
 		
 		this.loginButton = new LauncherButton(root);
-		this.loginButton.setText("Se connecter");
+		this.loginButton.setText("Jouer");
 		this.loginButton.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 22F));
-		this.loginButton.setPosition(700, engine.getHeight() / 2 + 130);
-		this.loginButton.setSize(200, 45);
+		this.loginButton.setPosition(700, engine.getHeight() / 2 + 125);
+		this.loginButton.setSize(200, 40);
 		this.loginButton.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6); -fx-text-fill: white;");
 		this.loginButton.setAction(event -> {
 			if (this.usernameField.getText().length() < 3) {
-				new LauncherAlert("Connexion echouée", "Addresse e-mail invalide");
+//				new LauncherAlert("Connexion echouée", "Addresse e-mail invalide");
+				this.error.setVisible(true);
+				this.error.setText("Addresse e-mail invalide");
 			} else if (this.usernameField.getText().length() > 3 && !this.passwordField.getText().isEmpty()) {
 				GameAuth auth = new GameAuth(this.usernameField.getText(), this.passwordField.getText(), AccountType.MOJANG);
 				if (auth.isLogged()) {
 					this.usernameSaver.writeUsername(this.usernameField.getText());
 					this.update(engine, auth);
 				} else {
-					new LauncherAlert("Connexion echouée", "Identification incorrects");
+//					new LauncherAlert("Connexion echouée", "Identification incorrects");
+					this.error.setVisible(true);
+					this.error.setText("Identifiants incorrects");
 				}
 			} else {
-				new LauncherAlert("Connexion echouée", "La connexion a echouée");
+//				new LauncherAlert("Connexion echouée", "La connexion a echouée");
+				this.error.setVisible(true);
+				this.error.setText("Mot de passe invalide");
 			}
 		});
 		
@@ -317,10 +324,50 @@ public class LauncherPanel extends IScreen {
 		this.createaccount.setFont(FontLoader.loadFont("Chomsky.ttf", "Chomsky", 14F));
 		this.createaccount.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6); -fx-text-fill: white;");
 		this.createaccount.setInvisible();
-		this.createaccount.setPosition(725, engine.getHeight() / 2 + 200);
+		this.createaccount.setPosition(725, engine.getHeight() / 2 + 250);
 		this.createaccount.setSize(150, 40);
 		this.createaccount.setOnAction(event -> {
 			openLink("https://www.minecraft.net/fr-fr/get-minecraft");
+		});
+		
+		/** ================= Réseaux sociaux ================= **/
+		this.reseauxSociaux = new LauncherRectangle(root, 300, 536, 350, 64);
+		this.reseauxSociaux.setFill(Color.rgb(0, 0, 0, 0.50));
+		
+		this.facebook = new LauncherButton(root);
+		this.facebook.setInvisible();
+		this.facebook.setPosition(350, 540);
+		LauncherImage fb = new LauncherImage(root, getResourceLocation().loadImage(engine, "facebook.png"));
+		fb.setSize(48, 48);
+		this.facebook.setGraphic(fb);
+		this.facebook.setSize(48, 48);
+		this.facebook.setBackground(null);
+		this.facebook.setOnAction(event -> {
+			openLink("https://www.facebook.com/kginfoservs");
+		});
+		
+		this.discord = new LauncherButton(root);
+		this.discord.setInvisible();
+		this.discord.setPosition(451, 540);
+		LauncherImage dicord = new LauncherImage(root, getResourceLocation().loadImage(engine, "discord.png"));
+		dicord.setSize(48, 48);
+		this.discord.setGraphic(dicord);
+		this.discord.setSize(48, 48);
+		this.discord.setBackground(null);
+		this.discord.setOnAction(event -> {
+			openLink("https://discord.com/invite/UxxdkDy");
+		});
+		
+		this.twitter = new LauncherButton(root);
+		this.twitter.setInvisible();
+		this.twitter.setPosition(552, 540);
+		LauncherImage twitter = new LauncherImage(root, getResourceLocation().loadImage(engine, "twitter.png"));
+		twitter.setSize(48, 48);
+		this.twitter.setGraphic(twitter);
+		this.twitter.setSize(48, 48);
+		this.twitter.setBackground(null);
+		this.twitter.setOnAction(event -> {
+			openLink("https://twitter.com/KGInfoServs");
 		});
 		
 		/** ================= Rectangle central ================= **/
