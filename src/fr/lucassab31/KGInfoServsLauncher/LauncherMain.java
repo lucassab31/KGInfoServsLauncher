@@ -24,11 +24,12 @@ public class LauncherMain extends AlternativeBase {
 	/** ================= Préférence du launcher (Nom, taille) ================= **/
 	private LauncherPreferences launcherPreference = new LauncherPreferences("KGInfoServs Launcher", 950, 600, true);
 	/** ================= Moteur du jeu (dossier, preférences, version, style) ================= **/
-	private GameEngine gameEngine = new GameEngine(gameFolder, launcherPreference, GameVersion.V_1_16_1, GameStyle.OPTIFINE);
+	private GameEngine gameEngine = new GameEngine(gameFolder, launcherPreference, GameVersion.V_1_16_2, GameStyle.OPTIFINE);
 	/** ================= Autorisation des maintenances ================= **/
 	private GameMaintenance gameMaintenance = new GameMaintenance(Maintenance.USE, gameEngine);
 	/** ================= Lien de téléchargement des fichiers du jeu ================= **/
-	private GameLinks gameLinks =  new GameLinks("https://download.kginfoservs.com/KGInfoServsLauncher/files/", "1.16.2.json");
+//	private GameLinks gameLinks =  new GameLinks("https://download.kginfoservs.com/KGInfoServsLauncher/files/", "1.16.3.json");
+	private GameLinks gameLinks =  new GameLinks("https://download.kginfoservs.com/KGInfoServsLauncher/DEV/files/", "1.16.3.json");
 	/** ================= Connexion automatique à un serveur ================= **/
 	private GameConnect gameConnect = new GameConnect("play.kginfoservs.com", "25565");
 
